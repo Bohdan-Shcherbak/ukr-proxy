@@ -17,7 +17,13 @@ app.get('/proxy', async (req, res) => {
                }
           });
           const $ = cheerio.load(response.data);
-          const result = $('p.cont_p').toArray().map(el => $(el).textContent);
+          // const result = $('p.cont_p').toArray().map(el => $(el.textContent));
+          // const result = $('p.cont_p')
+          // result.forEach(element => {
+               
+          // });
+          const result = $('p.cont_p').toArray().map(el => $(el).text());
+
           res.send(result);
      } catch (error) {
           res.status(500).send('Помилка під час запиту');
