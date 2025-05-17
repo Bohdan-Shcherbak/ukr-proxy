@@ -8,7 +8,7 @@ app.get('/proxy', async (req, res) => {
      if (!word) {
           return res.status(400).send('Не вказано слово');
      }
-     const url = `https://slovnyk.ua/index.php?${word}}`;
+     const url = `https://slovnyk.ua/index.php?${word}`;
 
      try {
           const response = await axios.get(url, {
