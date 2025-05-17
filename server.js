@@ -4,11 +4,11 @@ const cheerio = require('cheerio');
 const app = express();
 
 app.get('/proxy', async (req, res) => {
-     const word = req.query.word; // Отримуємо ?word=... з URL
-     if (!word) {
+     const numberPage = req.query.numberPage; // Отримуємо ?word=... з URL
+     if (!numberPage) {
           return res.status(400).send('Не вказано слово');
      }
-     const url = `https://slovnyk.ua/index.php?${word}`;
+     const url = `https://slovnyk.ua/index.php?${numberPage}`;
 
      try {
           const response = await axios.get(url, {
