@@ -17,7 +17,7 @@ app.get('/proxy', async (req, res) => {
                }
           });
           const $ = cheerio.load(response.data);
-          const result = $('p.cont_p')
+          const result = $('p.cont_p').toArray().map(el => $(el).html());
           res.send(result);
      } catch (error) {
           res.status(500).send('Помилка під час запиту');
