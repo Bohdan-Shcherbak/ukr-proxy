@@ -1,7 +1,11 @@
 const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
+const cors = require('cors'); // <== додаємо
+
 const app = express();
+
+app.use(cors()); // <== додаємо цю стрічку
 
 app.get('/proxy', async (req, res) => {
      const word = req.query.word; // Отримуємо ?word=... з URL
