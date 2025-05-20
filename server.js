@@ -1,11 +1,10 @@
 const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const cors = require('cors'); // <== додаємо
-
+const cors = require('cors'); 
 const app = express();
 
-app.use(cors()); // <== додаємо цю стрічку
+app.use(cors());
 
 app.get('/proxy', async (req, res) => {
      const word = req.query.word; // Отримуємо ?word=... з URL
@@ -18,19 +17,20 @@ app.get('/proxy', async (req, res) => {
           const response = await axios.get(url, {
                headers: {
                'User-Agent': 'Mozilla/5.0'
-               }
+               },
+               timeout: 60000 
           });
           const $ = cheerio.load(response.data);
-          // const result = $('p.cont_p').toArray().map(el => $(el.textContent));
-          // const result = $('p.cont_p')
-          // result.forEach(element => {
                
-          // });
           const result = $('p.cont_p').toArray().map(el => $(el).text());
 
           res.send(result);
      } catch (error) {
-          res.status(500).send('Помилка під час запиту');
+          if (error.code === 'ECONNABORTED') {
+               res.status(504).send('Час очікування вичерпано');
+          } else {
+               res.status(500).send('Помилка під час запиту');
+          }
      }
 });
 
