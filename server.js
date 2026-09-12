@@ -11,8 +11,8 @@ app.get('/proxy', async (req, res) => {
      if (!word) {
           return res.status(400).send('Не вказано слово');
      }
-
-     const url = `https://slovnyk.ua/index.php?${word}`;
+const newWord = decodeURIComponent(word);
+     const url = `https://slovnyk.ua/index.php?${newWord}`;
      // const url = `https://slovnyk.ua/index.php?${newWorld.toString()}`;
 
      try {
