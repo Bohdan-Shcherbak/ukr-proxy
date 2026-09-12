@@ -11,11 +11,9 @@ app.get('/proxy', async (req, res) => {
      if (!word) {
           return res.status(400).send('Не вказано слово');
      }
-     const newWorld = new URLSearchParams({
-          word: "s1=12&s2=41"
-     });
-     // const url = `https://slovnyk.ua/index.php?${word}`;
-     const url = `https://slovnyk.ua/index.php?${newWorld.toString()}`;
+
+     const url = `https://slovnyk.ua/index.php?${word}`;
+     // const url = `https://slovnyk.ua/index.php?${newWorld.toString()}`;
 
      try {
           const response = await axios.get(url, {
@@ -31,9 +29,10 @@ app.get('/proxy', async (req, res) => {
           res.send(result);
      } catch (error) {
           if (error.code === 'ECONNABORTED') {
-               res.status(504).send('Час очікування вичерпано');
+               res.status(504).send([url,word]);
           } else {
-               res.status(500).send('Помилка під час запиту');
+               // res.status(500).send('Помилка під час запиту');
+               res.status(500).send([url,word]);
           }
      }
 });
