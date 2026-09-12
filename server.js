@@ -31,7 +31,11 @@ app.get('/proxy', async (req, res) => {
                },
                timeout: 60000 
           });
+          console.log(response.data);
+          
           const $ = cheerio.load(response.data);
+          console.log($);
+          
                
           const result = $('p.cont_p').toArray().map(el => $(el).text());
           console.log(result);
