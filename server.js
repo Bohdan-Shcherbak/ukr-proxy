@@ -11,28 +11,35 @@ app.get('/proxy', async (req, res) => {
      if (!word) {
           return res.status(400).send('Не вказано слово');
      }
-const newWord = decodeURIComponent(word);
+     console.log(word);
+     
+     const newWord = decodeURIComponent(word);
+     console.log(newWord);
+     
      const url = `https://slovnyk.ua/index.php?${newWord}`;
-     // const url = `https://slovnyk.ua/index.php?${newWorld.toString()}`;
+     console.log(url);
+     
 
      try {
           const response = await axios.get(url, {
                headers: {
-               'User-Agent': 'Mozilla/5.0'
+               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+               'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+               'Accept-Language': 'uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7',
                },
                timeout: 60000 
           });
           const $ = cheerio.load(response.data);
                
           const result = $('p.cont_p').toArray().map(el => $(el).text());
-
+          console.log(result);
+          
           res.send(result);
      } catch (error) {
           if (error.code === 'ECONNABORTED') {
-               res.status(504).send(url);
+               res.status(504).send(є);
           } else {
-               // res.status(500).send('Помилка під час запиту');
-               res.status(500).send(word);
+               res.status(500).send('Помилка під час запиту');
           }
      }
 });
