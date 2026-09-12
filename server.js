@@ -29,10 +29,10 @@ app.get('/proxy', async (req, res) => {
           res.send(result);
      } catch (error) {
           if (error.code === 'ECONNABORTED') {
-               res.status(504).send([url,word]);
+               res.status(504).send(url);
           } else {
                // res.status(500).send('Помилка під час запиту');
-               res.status(500).send([url,word]);
+               res.status(500).send(word);
           }
      }
 });
