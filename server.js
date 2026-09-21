@@ -31,16 +31,16 @@ app.get('/proxy', async (req, res) => {
                },
                timeout: 60000 
           });
-          console.log(response.data);
+          // console.log(response.data);
           
-          const $ = cheerio.load(response.data);
-          console.log($);
+          // const $ = cheerio.load(response.data);
+          // console.log($);
           
                
-          const result = $('p.cont_p').toArray().map(el => $(el).text());
-          console.log(result);
+          // const result = $('p.cont_p').toArray().map(el => $(el).text());
+          // console.log(result);
           
-          res.send(result);
+          res.send(response.data);
      } catch (error) {
           if (error.code === 'ECONNABORTED') {
                res.status(504).send(є);
