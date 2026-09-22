@@ -17,7 +17,6 @@ app.get('/proxy', async (req, res) => {
      
      // const url = `https://slovnyk.ua/index.php?s1=1&s2=93`;
      
-     console.log(url);
      
 
      try {
