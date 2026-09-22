@@ -13,16 +13,18 @@ app.get('/proxy', async (req, res) => {
      }
      console.log(word);
      
-     const newWord = decodeURIComponent(word);
-     console.log(newWord);
      
-     // const url = `https://slovnyk.ua/index.php?${newWord}`;
-     const url = `https://slovnyk.ua/index.php?s1=1&s2=93`;
+     
+     // const url = `https://slovnyk.ua/index.php?s1=1&s2=93`;
      
      console.log(url);
      
 
      try {
+          const newWord = decodeURIComponent(word);
+          console.log(newWord);
+          const url = `https://slovnyk.ua/index.php?${newWord}`;
+
           // const response = await axios.get(url, {
           const response = await fetch(url, {
                method: 'GET',
@@ -33,6 +35,10 @@ app.get('/proxy', async (req, res) => {
                },
                timeout: 60000 
           });
+          if (!response.ok) {
+               return res.status(response.status).send(`Помилка зовнішнього сайту: ${response.statusText}`);
+          }
+          const html = await response.text();
           // console.log(response.data);
           
           // const $ = cheerio.load(response.data);
@@ -42,7 +48,7 @@ app.get('/proxy', async (req, res) => {
           // const result = $('p.cont_p').toArray().map(el => $(el).text());
           // console.log(result);
           
-          res.send(response.data);
+          res.send(html);
      } catch (error) {
           if (error.code === 'ECONNABORTED') {
                res.status(504).send(є);
