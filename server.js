@@ -23,7 +23,8 @@ app.get('/proxy', async (req, res) => {
           const newWord = decodeURIComponent(word);
           console.log(newWord);
           // const url = `https://slovnyk.ua/index.php?${newWord}`;
-          const url = `https://slovnyk.ua/${newWord}`;
+          const url = `https://slovnyk.ua/index.php?s1=1&s2=93`;
+          // const url = `https://slovnyk.ua/${newWord}`;
 
           // const response = await axios.get(url, {
           const response = await fetch(url, {
@@ -33,7 +34,6 @@ app.get('/proxy', async (req, res) => {
                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
                'Accept-Language': 'uk-UA,uk;q=0.9,en-US;q=0.8,en;q=0.7',
                },
-               timeout: 60000 
           });
           if (!response.ok) {
                return res.status(response.status).send(`Помилка зовнішнього сайту: ${response.statusText}`);
