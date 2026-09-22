@@ -23,7 +23,8 @@ app.get('/proxy', async (req, res) => {
      try {
           const newWord = decodeURIComponent(word);
           console.log(newWord);
-          const url = `https://slovnyk.ua/index.php?${newWord}`;
+          // const url = `https://slovnyk.ua/index.php?${newWord}`;
+          const url = `https://slovnyk.ua/${newWord}`;
 
           // const response = await axios.get(url, {
           const response = await fetch(url, {
